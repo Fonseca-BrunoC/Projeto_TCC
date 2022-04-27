@@ -1,0 +1,607 @@
+WindowManager:
+    Home:
+    Modelagem:
+    MP1:
+    MP2:
+    MP3:
+    Simulacao:
+    SP1:
+    SP2:
+    SP3:
+
+
+<Home>:
+    name: "home"
+    MDBoxLayout:
+        orientation: 'horizontal'
+        size: root.width, root.height
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.5
+                    height: 30
+                    text: 'Simulação'
+                    on_release:
+                        app.root.current = "simulacao"
+                        root.manager.transition.direction = "right"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.5
+                    height: 30
+                    text: 'Modelagem'
+                    on_release:
+                        app.root.current = "modelagem"
+                        root.manager.transition.direction = "left"
+
+
+<Modelagem>:
+    name: "modelagem"
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.85, 'top': 0.8}
+                    text: "Qual o tipo de produto do processo?"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Associado ao crescimento"
+                    on_release:
+                        app.root.current = "MP1"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Não associado ao crescimento"
+                    on_release:
+                        app.root.current = "MP2"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0}
+                    text: "Parcialmente associado ao crescimento"
+                    on_release:
+                        app.root.current = "MP3"
+                        root.manager.transition.direction = "left"
+
+
+        MDFloatLayout:
+            MDRoundFlatButton:
+                pos_hint: {'center_x': 0.5, 'top':0.3}
+                size_hint_y: 0.15
+                size_hint_x: 0.2
+                height: 30
+                text: 'Voltar'
+                on_release:
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+<MP1>:
+    name: "MP1"
+    MDBoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatIconButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.8}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Load excel file'
+                    icon: 'folder'
+                    on_release: root.show_load()
+
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Iniciar modelagem'
+                    on_release: root.show_result()
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.3}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Voltar'
+                    on_release:
+                        app.root.current = "modelagem"
+                        root.manager.transition.direction = "right"
+
+
+<MP2>:
+    name: "MP2"
+    MDBoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatIconButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.8}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Load excel file'
+                    icon: 'folder'
+                    on_release: root.show_load()
+
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Iniciar modelagem'
+                    on_release: root.show_result()
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.3}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Voltar'
+                    on_release:
+                        app.root.current = "modelagem"
+                        root.manager.transition.direction = "right"
+
+
+<MP3>:
+    name: "MP3"
+    MDBoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatIconButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.8}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Load excel file'
+                    icon: 'folder'
+                    on_release: root.show_load()
+
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Iniciar modelagem'
+                    on_release: root.show_result()
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.3}
+                    size_hint_y: 0.15
+                    size_hint_x: 0.2
+                    height: 30
+                    text: 'Voltar'
+                    on_release:
+                        app.root.current = "modelagem"
+                        root.manager.transition.direction = "right"
+
+
+<LoadDialog>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        pos: root.pos
+        size: root.size
+        FileChooserIconView:
+            id: loadfile
+            on_selection: root.load(loadfile.path, loadfile.selection), root.cancel()
+
+
+        MDBoxLayout:
+            size_hint_y: 0.08
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x':0.5, 'center_y':0.5}
+                    text: "Cancel"
+                    on_release: root.cancel()
+
+
+<ResultDialog1>
+    MDBoxLayout:
+        id: tabela1
+        pos: root.pos
+        size: root.size
+
+    MDBoxLayout:
+        pos: root.pos
+        orientation: 'horizontal'
+        MDFloatLayout:
+            MDRectangleFlatButton:
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                text: "Gráficos"
+                on_press: root.m_grafico()
+
+
+    MDBoxLayout:
+        size_hint_y: 0.08
+        pos: root.pos
+        MDFloatLayout:
+            MDRectangleFlatButton:
+                pos_hint:{'center_x':0.5, 'center_y':0.2}
+                text: "Voltar"
+                on_release: root.cancel2()
+
+<ResultDialog2>
+    MDBoxLayout:
+        id: tabela2
+        pos: root.pos
+        size: root.size
+
+    MDBoxLayout:
+        pos: root.pos
+        orientation: 'horizontal'
+        MDFloatLayout:
+            MDRectangleFlatButton:
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                text: "Gráficos"
+                on_press: root.m_grafico()
+
+
+    MDBoxLayout:
+        size_hint_y: 0.08
+        pos: root.pos
+        MDFloatLayout:
+            MDRectangleFlatButton:
+                pos_hint:{'center_x':0.5, 'center_y':0.2}
+                text: "Voltar"
+                on_release: root.cancel3()
+
+<ResultDialog3>
+    MDBoxLayout:
+        id: tabela3
+        pos: root.pos
+        size: root.size
+
+    MDBoxLayout:
+        pos: root.pos
+        orientation: 'horizontal'
+        MDFloatLayout:
+            MDRectangleFlatButton:
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                text: "Gráficos"
+                on_press: root.m_grafico()
+
+
+    MDBoxLayout:
+        size_hint_y: 0.08
+        pos: root.pos
+        MDFloatLayout:
+            MDRectangleFlatButton:
+                pos_hint:{'center_x':0.5, 'center_y':0.2}
+                text: "Voltar"
+                on_release: root.cancel4()
+
+
+<Simulacao>:
+    name: 'simulacao'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.85, 'top': 0.8}
+                    text: "Qual o tipo de produto do processo?"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Associado ao crescimento"
+                    on_release:
+                        app.root.current = "SP1"
+                        root.manager.transition.direction = "right"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Não associado ao crescimento"
+                    on_release:
+                        app.root.current = "SP2"
+                        root.manager.transition.direction = "right"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0}
+                    text: "Parcialmente associado ao crescimento"
+                    on_release:
+                        app.root.current = "SP3"
+                        root.manager.transition.direction = "right"
+
+
+        MDFloatLayout:
+            MDRoundFlatButton:
+                pos_hint: {'center_x': 0.5, 'top':0.3}
+                size_hint_y: 0.15
+                size_hint_x: 0.2
+                height: 30
+                text: 'Voltar'
+                on_release:
+                    app.root.current = "home"
+                    root.manager.transition.direction = "left"
+
+
+<SP1>:
+    name: 'SP1'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDFloatLayout:
+            MDTextField:
+                id: t1
+                hint_text: "Tempo"
+                helper_text: "Tempo em horas de duração do processo"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cx1
+                hint_text: "Cxi"
+                helper_text: "Concentração inicial de células em g/L"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cs1
+                hint_text: "Csi"
+                helper_text: "Concentração inicial de substrato em g/L"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: mimax1
+                hint_text: "mimax"
+                helper_text: "Velocidade específica máxima de crescimento em 1/h"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: ks1
+                hint_text: "Ks"
+                helper_text: "Constante de substrato"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: yxs1
+                hint_text: "Yx/s"
+                helper_text: "Razão entre células e substrato"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: kd1
+                hint_text: "Kd"
+                helper_text: "Constante de morte celular"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: alfa1
+                hint_text: "alfa"
+                helper_text: "Constante do produto associado ao crescimento"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.55
+                    size_hint_x: 0.3
+                    height: 30
+                    text: 'Iniciar simulação'
+                    on_release: root.sol1()
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.55
+                    size_hint_x: 0.3
+                    height: 30
+                    text: 'Voltar'
+                    on_release:
+                        app.root.current = "simulacao"
+                        root.manager.transition.direction = "left"
+
+<SP2>:
+    name: 'SP2'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDFloatLayout:
+            MDTextField:
+                id: t2
+                hint_text: "Tempo"
+                helper_text: "Tempo em horas de duração do processo"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cx2
+                hint_text: "Cxi"
+                helper_text: "Concentração inicial de células em g/L"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cs2
+                hint_text: "Csi"
+                helper_text: "Concentração inicial de substrato em g/L"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: mimax2
+                hint_text: "mimax"
+                helper_text: "Velocidade específica máxima de crescimento em 1/h"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: ks2
+                hint_text: "Ks"
+                helper_text: "Constante de substrato"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: yxs2
+                hint_text: "Yx/s"
+                helper_text: "Razão entre células e substrato"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: kd2
+                hint_text: "Kd"
+                helper_text: "Constante de morte celular"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: beta2
+                hint_text: "beta"
+                helper_text: "Constante do produto não associado ao crescimento"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.55
+                    size_hint_x: 0.3
+                    height: 30
+                    text: 'Iniciar simulação'
+                    on_release: root.sol2()
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.55
+                    size_hint_x: 0.3
+                    height: 30
+                    text: 'Voltar'
+                    on_release:
+                        app.root.current = "simulacao"
+                        root.manager.transition.direction = "left"
+
+<SP3>:
+    name: 'SP3'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDFloatLayout:
+            MDTextField:
+                id: t3
+                hint_text: "Tempo"
+                helper_text: "Tempo em horas de duração do processo"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cx3
+                hint_text: "Cxi"
+                helper_text: "Concentração inicial de células em g/L"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cs3
+                hint_text: "Csi"
+                helper_text: "Concentração inicial de substrato em g/L"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: mimax3
+                hint_text: "mimax"
+                helper_text: "Velocidade específica máxima de crescimento em 1/h"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: ks3
+                hint_text: "Ks"
+                helper_text: "Constante de substrato"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: yxs3
+                hint_text: "Yx/s"
+                helper_text: "Razão entre células e substrato"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: kd3
+                hint_text: "Kd"
+                helper_text: "Constante de morte celular"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: alfa3
+                hint_text: "alfa"
+                helper_text: "Constante do produto associado ao crescimento"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: beta3
+                hint_text: "beta"
+                helper_text: "Constante do produto não associado ao crescimento"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.55
+                    size_hint_x: 0.3
+                    height: 30
+                    text: 'Iniciar simulação'
+                    on_release: root.sol3()
+
+            MDFloatLayout:
+                MDRoundFlatButton:
+                    pos_hint: {'center_x': 0.5, 'top':0.6}
+                    size_hint_y: 0.55
+                    size_hint_x: 0.3
+                    height: 30
+                    text: 'Voltar'
+                    on_release:
+                        app.root.current = "simulacao"
+                        root.manager.transition.direction = "left"
+
+<GraphS1>:
+    MDBoxLayout:
+        id: S1
+        size_hint_y: 1
+        pos_hint: {'center_x': 0.5, 'center_y':0.5}
+
+        MDFloatLayout:
+            MDRoundFlatButton:
+                text: "Fechar"
+                on_release: root.cancel_S1()
