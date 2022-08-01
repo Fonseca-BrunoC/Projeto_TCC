@@ -13,45 +13,56 @@ Ci = (Cexp[0,0], Cexp[0,1], Cexp[0,2]) #condições iniciais
 
 
 def edo1(C, t, *args):
-  mimax = args[0]
-  Ks = args[1]
-  Yxs = args[2]
-  kd = args[3]
-  alfa = args[4]
+  mimax = args[0]  # unidade 1/hora - taxa específica de crescimento
+  Ks = args[1]  # constante de semi-saturação
+  Ki = args[2] #constante de inibição por substrato
+  Yxs = args[3]  # coeficiente estequiométrico
+  kd = args[4]  # constante de morte celular
+  alfa = args[5]  # constante do produto associado ao crescimento
 
-  mi = (mimax) * (C[1] / (Ks + C[1]))
-  dCxdt = (mi - kd) * C[0]
-  dCsdt = -((1/Yxs) * (mi - kd) * C[0])
-  dCpdt = alfa * mi * C[0]
+  d1 = (C[1]**2) / Ki
+  d2 = Ks + C[1] + d1
+  d3 = C[1] / d2
+  mi =  mimax * d3 #Andrews
+  dCxdt = (mi - kd) * C[0] #eq para célula
+  dCsdt = -((1/Yxs) * (mi - kd) * C[0]) #eq para o substrato
+  dCpdt = alfa * mi * C[0] #eq do produto associado ao crescimento
   return dCxdt, dCsdt, dCpdt
 
 def edo2(C, t, *args):
-  mimax = args[0]
-  Ks = args[1]
-  Yxs = args[2]
-  kd = args[3]
-  beta = args[4]
+  mimax = args[0]  # unidade 1/hora - taxa específica de crescimento
+  Ks = args[1]  # constante de semi-saturação
+  Ki = args[2] #constante de inibição por substrato
+  Yxs = args[3]  # coeficiente estequiométrico
+  kd = args[4]  # constante de morte celular
+  beta = args[5]  # constante do produto não associado ao crescimento
 
-  mi = (mimax) * (C[1] / (Ks + C[1]))
-  dCxdt = (mi - kd) * C[0]
-  dCsdt = -((1/Yxs) * (mi - kd) * C[0])
-  dCpdt = beta * C[0]
+  d1 = (C[1]**2) / Ki
+  d2 = Ks + C[1] + d1
+  d3 = C[1] / d2
+  mi =  mimax * d3 #Andrews
+  dCxdt = (mi - kd) * C[0] #eq para célula
+  dCsdt = -((1/Yxs) * (mi - kd) * C[0]) #eq para o substrato
+  dCpdt = beta * C[0] #eq do produto não associado ao crescimento
   return dCxdt, dCsdt, dCpdt
 
 def edo3(C, t, *args):
-  mimax = args[0]
-  Ks = args[1]
-  Yxs = args[2]
-  kd = args[3]
-  alfa = args[4]
-  beta = args[5]
+  mimax = args[0]  # unidade 1/hora - taxa específica de crescimento
+  Ks = args[1]  # constante de semi-saturação
+  Ki = args[2] # constante de inibição por substrato
+  Yxs = args[3]  # coeficiente estequiométrico
+  kd = args[4]  # constante de morte celular
+  alfa = args[5]  # constante do produto associado ao crescimento
+  beta = args[6]  # constante do produto não associado ao crescimento
 
-  mi = (mimax) * (C[1] / (Ks + C[1]))
-  dCxdt = (mi - kd) * C[0]
-  dCsdt = -((1/Yxs) * (mi - kd) * C[0])
-  dCpdt = ((alfa * mi) + beta ) * (C[0])
+  d1 = (C[1]**2) / Ki
+  d2 = Ks + C[1] + d1
+  d3 = C[1] / d2
+  mi =  mimax * d3 #Andrews
+  dCxdt = (mi - kd) * C[0] #eq para célula
+  dCsdt = -((1/Yxs) * (mi - kd) * C[0]) #eq para o substrato
+  dCpdt = ((alfa * mi) + beta ) * C[0] #eq do produto parcialmente associado ao crescimento
   return dCxdt, dCsdt, dCpdt
-
 
 lista = [1,1,1]
 
@@ -88,9 +99,9 @@ def rmse3(parametros, *data):
   residuo = sum(residuo ** 2)
   return residuo
 
-limites1 = [(0, 10),(0, 100),(0.001, 10),(0, 1),(0, 10)]
-limites2 = [(0, 10),(0, 100),(0.001, 10),(0, 1),(0, 10)]
-limites3 = [(0, 10),(0, 100),(0.001, 10),(0, 1),(0, 10),(0, 10)]
+limites1 = [(0, 10),(0, 100),(0, 100),(0.001, 10),(0, 10),(0, 10)]
+limites2 = [(0, 10),(0, 100),(0, 100),(0.001, 10),(0, 10),(0, 10)]
+limites3 = [(0, 10),(0, 100),(0, 100), (0.001, 1),(0, 1),(0, 10),(0, 10)]
 args = (t, Cexp)
 novos_parametros1 = differential_evolution(rmse1, limites1, args = args, popsize=5,  tol=0.01, mutation=(0.5, 1), recombination=0.7, updating='immediate') #aplicando a evolução diferencial
 P1 = novos_parametros1.x
@@ -295,7 +306,7 @@ def grafico_mi1():
   plt.rc('axes', titlesize=15)
   plt.rc('axes', labelsize=10)
   l1 = ax.plot(t, mi1, 'r-', linewidth=1)
-  ax.set_title("Velocidade específica de crescimento - Monod", weight ='bold')
+  ax.set_title("Velocidade específica de crescimento - Andrews", weight ='bold')
   ax.set_xlabel('Tempo (h)',weight='bold')
   ax.set_ylabel('Velocidade específica de crescimento', weight='bold')
   ax.grid(True)
@@ -309,7 +320,7 @@ def grafico_mi2():
   plt.rc('axes', titlesize=15)
   plt.rc('axes', labelsize=10)
   l1 = ax.plot(t, mi2, 'r-', linewidth=1)
-  ax.set_title("Velocidade específica de crescimento - Monod", weight ='bold')
+  ax.set_title("Velocidade específica de crescimento - Andrews", weight ='bold')
   ax.set_xlabel('Tempo (h)',weight='bold')
   ax.set_ylabel('Velocidade específica de crescimento', weight='bold')
   ax.grid(True)
@@ -323,7 +334,7 @@ def grafico_mi3():
   plt.rc('axes', titlesize=15)
   plt.rc('axes', labelsize=10)
   l1 = ax.plot(t, mi3, 'r-', linewidth=1)
-  ax.set_title("Velocidade específica de crescimento - Monod", weight ='bold')
+  ax.set_title("Velocidade específica de crescimento - Andrews", weight ='bold')
   ax.set_xlabel('Tempo (h)',weight='bold')
   ax.set_ylabel('Velocidade específica de crescimento', weight='bold')
   ax.grid(True)
