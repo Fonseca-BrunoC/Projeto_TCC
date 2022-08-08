@@ -1,9 +1,6 @@
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.uix.floatlayout import FloatLayout
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.integrate import odeint
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 import os
@@ -14,7 +11,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 import pandas as pd
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDRectangleFlatButton, MDFlatButton
+from kivymd.uix.button import MDFlatButton
 from importlib import reload
 
 class LoadDialog(MDBoxLayout):
@@ -185,7 +182,6 @@ class ResultDialog_Mod_Andrews2(FloatLayout):
         return self.g2
 
     cancel2 = ObjectProperty(None)
-
 
 class ResultDialog_Mod_Andrews3(FloatLayout):
     def __init__(self, **kwargs):
@@ -634,10 +630,24 @@ class Monod_MP1(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_1_2 = ResultDialog1(cancel2=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_1_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog1(cancel2=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import modelagem
@@ -656,8 +666,11 @@ class Monod_MP1(Screen):
         return modelagem.grafico_mi1()
 
     def reload_f(self):
-        import modelagem
-        return reload(modelagem)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import modelagem
+            return reload(modelagem)
+        else: pass
 
 class Moser_MP1(Screen):
     pass
@@ -692,10 +705,24 @@ class Andrews_MP1(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_1_2 = ResultDialog_Mod_Andrews1(cancel2=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_1_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog_Mod_Andrews1(cancel2=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import mod_andrews
@@ -714,8 +741,11 @@ class Andrews_MP1(Screen):
         return mod_andrews.grafico_mi1()
 
     def reload_f(self):
-        import mod_andrews
-        return reload(mod_andrews)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import mod_andrews
+            return reload(mod_andrews)
+        else: pass
 
 class Levenspiel_MP1(Screen):
     pass
@@ -747,10 +777,24 @@ class Aiba_Shoda_Nagatani_MP1(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_1_2 = ResultDialog_Mod_Aiba1(cancel2=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_1_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog_Mod_Aiba1(cancel2=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import mod_aiba_shoda
@@ -769,8 +813,11 @@ class Aiba_Shoda_Nagatani_MP1(Screen):
         return mod_aiba_shoda.grafico_mi1()
 
     def reload_f(self):
-        import mod_aiba_shoda
-        return reload(mod_aiba_shoda)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import mod_aiba_shoda
+            return reload(mod_aiba_shoda)
+        else: pass
 
 class Escolha_M2(Screen):
     pass
@@ -802,10 +849,24 @@ class Monod_MP2(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_2_2 = ResultDialog2(cancel3=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_2_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog2(cancel3=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import modelagem
@@ -824,8 +885,11 @@ class Monod_MP2(Screen):
         return modelagem.grafico_mi2()
 
     def reload_f(self):
-        import modelagem
-        return reload(modelagem)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import modelagem
+            return reload(modelagem)
+        else: pass
 
 class Moser_MP2(Screen):
     pass
@@ -860,10 +924,24 @@ class Andrews_MP2(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_1_2 = ResultDialog_Mod_Andrews2(cancel2=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_1_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog_Mod_Andrews2(cancel2=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import mod_andrews
@@ -882,8 +960,11 @@ class Andrews_MP2(Screen):
         return mod_andrews.grafico_mi2()
 
     def reload_f(self):
-        import mod_andrews
-        return reload(mod_andrews)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import mod_andrews
+            return reload(mod_andrews)
+        else: pass
 
 class Levenspiel_MP2(Screen):
     pass
@@ -915,10 +996,24 @@ class Aiba_Shoda_Nagatani_MP2(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_1_2 = ResultDialog_Mod_Aiba2(cancel2=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_1_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog_Mod_Aiba2(cancel2=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import mod_aiba_shoda
@@ -937,8 +1032,11 @@ class Aiba_Shoda_Nagatani_MP2(Screen):
         return mod_aiba_shoda.grafico_mi2()
 
     def reload_f(self):
-        import mod_aiba_shoda
-        return reload(mod_aiba_shoda)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import mod_aiba_shoda
+            return reload(mod_aiba_shoda)
+        else: pass
 
 class Escolha_M3(Screen):
     pass
@@ -971,10 +1069,24 @@ class Monod_MP3(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_3_2 = ResultDialog3(cancel4=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_3_2,
-                           size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog3(cancel4=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
 
     def model(self):
@@ -993,8 +1105,11 @@ class Monod_MP3(Screen):
         return modelagem.grafico_mi3()
 
     def reload_f(self):
-        import modelagem
-        return reload(modelagem)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import modelagem
+            return reload(modelagem)
+        else: pass
 
 class Moser_MP3(Screen):
     pass
@@ -1029,10 +1144,24 @@ class Andrews_MP3(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_1_2 = ResultDialog_Mod_Andrews3(cancel2=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_1_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog_Mod_Andrews3(cancel2=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import mod_andrews
@@ -1051,8 +1180,11 @@ class Andrews_MP3(Screen):
         return mod_andrews.grafico_mi3()
 
     def reload_f(self):
-        import mod_andrews
-        return reload(mod_andrews)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import mod_andrews
+            return reload(mod_andrews)
+        else: pass
 
 class Levenspiel_MP3(Screen):
     pass
@@ -1084,10 +1216,24 @@ class Aiba_Shoda_Nagatani_MP3(Screen):
         shutil.move(filename2, file_newname_newfile)
 
     def show_result(self):
-        content_1_2 = ResultDialog_Mod_Aiba3(cancel2=self.dismiss_popup)
-        self._popup = Popup(title="Resultados", content=content_1_2,
-                            size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
-        self._popup.open()
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            content_1_2 = ResultDialog_Mod_Aiba3(cancel2=self.dismiss_popup)
+            self._popup = Popup(title="Resultados", content=content_1_2,
+                                size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
+            self._popup.open()
+        else:
+            self.alerta_dialog()
+
+    def alerta_dialog(self):
+        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
+        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
+                               size_hint=(0.5, 1),
+                               buttons=[close_button])
+        self.dialog.open()
+
+    def close_dialog(self, obj):
+        self.dialog.dismiss()
 
     def model(self):
         import mod_aiba_shoda
@@ -1106,8 +1252,11 @@ class Aiba_Shoda_Nagatani_MP3(Screen):
         return mod_aiba_shoda.grafico_mi3()
 
     def reload_f(self):
-        import mod_aiba_shoda
-        return reload(mod_aiba_shoda)
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            import mod_aiba_shoda
+            return reload(mod_aiba_shoda)
+        else: pass
 
 class Simulacao(Screen):
     pass
@@ -1709,5 +1858,7 @@ class Processo_FermentativoApp(MDApp):
             os.remove('Parâmetros_Monod_Sim.xlsx')
         if os.path.isfile(local + '/Parâmetros_Andrews_Sim.xlsx'):
             os.remove('Parâmetros_Andrews_Sim.xlsx')
+        if os.path.isfile(local + '/Parâmetros_Aiba_Sim.xlsx'):
+            os.remove('Parâmetros_Aiba_Sim.xlsx')
 if __name__ == '__main__':
     Processo_FermentativoApp().run()
