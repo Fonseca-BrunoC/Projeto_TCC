@@ -88,38 +88,61 @@ def rmse3(parametros, *data):
   residuo = sum(residuo ** 2)
   return residuo
 
-limites1 = [(0, 10),(0, 100),(0.001, 10),(0, 1),(0, 10)]
-limites2 = [(0, 10),(0, 100),(0.001, 10),(0, 1),(0, 10)]
-limites3 = [(0, 10),(0, 100),(0.001, 10),(0, 1),(0, 10),(0, 10)]
-args = (t, Cexp)
-novos_parametros1 = differential_evolution(rmse1, limites1, args = args, popsize=5,  tol=0.01, mutation=(0.5, 1), recombination=0.7, updating='immediate') #aplicando a evolução diferencial
-P1 = novos_parametros1.x
-novos_parametros2 = differential_evolution(rmse2, limites2, args = args, popsize=5,  tol=0.01, mutation=(0.5, 1), recombination=0.7, updating='immediate') #aplicando a evolução diferencial
-P2 = novos_parametros2.x
-novos_parametros3 = differential_evolution(rmse3, limites3, args = args, popsize=5,  tol=0.01, mutation=(0.5, 1), recombination=0.7, updating='immediate') #aplicando a evolução diferencial
-P3 = novos_parametros3.x
+
+def parametros1():
+    limites1 = [(0, 1), (0, 5), (0.01, 5), (0, 1), (0, 2)]
+    args = (t, Cexp)
+
+
+    novos_parametros1 = differential_evolution(rmse1, limites1, args=args, popsize=5, tol=0.01, mutation=(0.5, 1),
+                                           recombination=0.7, updating='immediate')  # aplicando a evolução diferencial
+    P1 = novos_parametros1.x
+    return P1
 
 def result1():
-  return P1
+  return parametros1()
+
+def parametros2():
+    limites2 = [(0, 1), (0, 5), (0.01, 5), (0, 1), (0, 2)]
+    args = (t, Cexp)
+
+    novos_parametros2 = differential_evolution(rmse2, limites2, args=args, popsize=5, tol=0.01, mutation=(0.5, 1),
+                                               recombination=0.7,
+                                               updating='immediate')  # aplicando a evolução diferencial
+    P2 = novos_parametros2.x
+    return P2
 
 def result2():
-  return P2
+  return parametros2()
+
+def parametros3():
+    limites3 = [(0, 1), (0, 5), (0.01, 5), (0, 1), (0, 2), (0, 2)]
+    args = (t, Cexp)
+
+    novos_parametros3 = differential_evolution(rmse3, limites3, args=args, popsize=5, tol=0.01, mutation=(0.5, 1),
+                                               recombination=0.7,
+                                               updating='immediate')  # aplicando a evolução diferencial
+    P3 = novos_parametros3.x
+    return P3
 
 def result3():
-  return P3
+  return parametros3()
 
+P1 = parametros1()
 P1 = tuple(P1)
 sol1 = odeint(edo1, Ci, t, args = P1)
 Cx1 = sol1[:,0]
 Cs1 = sol1[:,1]
 Cp1 = sol1[:,2]
 
+P2 = parametros2()
 P2 = tuple(P2)
 sol2 = odeint(edo2, Ci, t, args = P2)
 Cx2 = sol2[:,0]
 Cs2 = sol2[:,1]
 Cp2 = sol2[:,2]
 
+P3 = parametros3()
 P3 = tuple(P3)
 sol3 = odeint(edo3, Ci, t, args = P3)
 Cx3 = sol3[:,0]
