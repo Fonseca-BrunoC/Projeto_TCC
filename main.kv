@@ -1,3 +1,18 @@
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: "#e7e4c0"
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    ripple_color: "#c5bdd2"
+    selected_color: "#0c6c4d"
+
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    focus_behavior: False
+    selected_color: "#4a4939"
+    _no_ripple_effect: True
+
 WindowManager:
     Home:
 
@@ -52,40 +67,73 @@ WindowManager:
     Levenspiel_SP3:
     Aiba_Shoda_Nagatani_SP3:
 
+
 <Home>:
     name: "home"
     MDBoxLayout:
-        orientation: 'horizontal'
-        size: root.width, root.height
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.15
-                    size_hint_x: 0.5
-                    height: 30
-                    text: 'Simulação'
-                    on_release:
-                        app.root.current = "simulacao"
-                        root.manager.transition.direction = "right"
+        orientation: 'vertical'
+        MDTopAppBar:
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.15
-                    size_hint_x: 0.5
-                    height: 30
-                    text: 'Modelagem'
-                    on_release:
-                        app.root.current = "modelagem"
-                        root.manager.transition.direction = "left"
+            orientation: 'horizontal'
+            size: root.width, root.height
+            MDBoxLayout:
+                MDFloatLayout:
+                    MDRoundFlatButton:
+                        pos_hint: {'center_x': 0.5, 'top':0.25}
+                        size_hint_y: 0.15
+                        size_hint_x: 0.5
+                        height: 30
+                        text: 'Documentação'
+                        on_release: root.documentacao()
 
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                #on_press:
+                    #app.root.current = "home"
+                    #root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Modelagem>:
     name: "modelagem"
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Modelagem"
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
@@ -99,19 +147,20 @@ WindowManager:
                     on_release:
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "left"
+
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.4}
                     text: "Não associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "left"
+
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0}
                     text: "Parcialmente associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "left"
-
 
         MDFloatLayout:
             MDRoundFlatButton:
@@ -129,33 +178,35 @@ WindowManager:
     name: "Escolha_M1"
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Modelagem - Produto associado ao crescimento"
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1}
+                    pos_hint: {'center_x': 0.77, 'top': 0.8}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
-                MDFloatLayout:
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':1.0}
-                        text: "Monod"
-                        on_release:
-                            app.root.current = "Monod_MP1"
-                            root.manager.transition.direction = "left"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Monod"
+                    on_release:
+                        app.root.current = "Monod_MP1"
+                        root.manager.transition.direction = "left"
 
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.8}
-                        text: "Andrews"
-                        on_release:
-                            app.root.current = "Andrews_MP1"
-                            root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Andrews"
+                    on_release:
+                        app.root.current = "Andrews_MP1"
+                        root.manager.transition.direction = "left"
 
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.6}
-                        text: "Aiba Shoda Nagatani"
-                        on_release:
-                            app.root.current = "Aiba_Shoda_Nagatani_MP1"
-                            root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.0}
+                    text: "Aiba Shoda Nagatani"
+                    on_release:
+                        app.root.current = "Aiba_Shoda_Nagatani_MP1"
+                        root.manager.transition.direction = "left"
 
         MDFloatLayout:
             MDRoundFlatButton:
@@ -173,6 +224,18 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -184,17 +247,6 @@ WindowManager:
                     icon: 'folder'
                     on_release: root.show_load()
 
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
@@ -204,15 +256,29 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "right"
-
 
 <Andrews_MP1>:
     name: "Andrews_MP1"
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -228,22 +294,15 @@ WindowManager:
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.3}
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "right"
 
@@ -252,6 +311,18 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -263,17 +334,6 @@ WindowManager:
                     icon: 'folder'
                     on_release: root.show_load()
 
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
@@ -283,6 +343,9 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "right"
 
@@ -291,31 +354,33 @@ WindowManager:
     name: "Escolha_M2"
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Modelagem - Produto não associado ao crescimento"
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1}
+                    pos_hint: {'center_x': 0.77, 'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
-                MDFloatLayout:
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':1.0}
-                        text: "Monod"
-                        on_release:
-                            app.root.current = "Monod_MP2"
-                            root.manager.transition.direction = "left"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.8}
-                        text: "Andrews"
-                        on_release:
-                            app.root.current = "Andrews_MP2"
-                            root.manager.transition.direction = "left"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.6}
-                        text: "Aiba Shoda Nagatani"
-                        on_release:
-                            app.root.current = "Aiba_Shoda_Nagatani_MP2"
-                            root.manager.transition.direction = "left"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Monod"
+                    on_release:
+                        app.root.current = "Monod_MP2"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Andrews"
+                    on_release:
+                        app.root.current = "Andrews_MP2"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.0}
+                    text: "Aiba Shoda Nagatani"
+                    on_release:
+                        app.root.current = "Aiba_Shoda_Nagatani_MP2"
+                        root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
                 pos_hint: {'center_x': 0.5, 'top':0.3}
@@ -332,6 +397,18 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto não associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -343,17 +420,6 @@ WindowManager:
                     icon: 'folder'
                     on_release: root.show_load()
 
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
@@ -363,6 +429,9 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "right"
 
@@ -371,6 +440,18 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto não associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -382,17 +463,6 @@ WindowManager:
                     icon: 'folder'
                     on_release: root.show_load()
 
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
@@ -402,6 +472,9 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "right"
 
@@ -410,6 +483,18 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto não associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -421,17 +506,6 @@ WindowManager:
                     icon: 'folder'
                     on_release: root.show_load()
 
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
@@ -441,6 +515,9 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "right"
 
@@ -448,31 +525,33 @@ WindowManager:
     name: "Escolha_M3"
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Modelagem - Produto parcialmente associado ao crescimento"
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1}
+                    pos_hint: {'center_x': 0.77, 'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
-                MDFloatLayout:
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':1.0}
-                        text: "Monod"
-                        on_release:
-                            app.root.current = "Monod_MP3"
-                            root.manager.transition.direction = "left"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.8}
-                        text: "Andrews"
-                        on_release:
-                            app.root.current = "Andrews_MP3"
-                            root.manager.transition.direction = "left"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.6}
-                        text: "Aiba Shoda Nagatani"
-                        on_release:
-                            app.root.current = "Aiba_Shoda_Nagatani_MP3"
-                            root.manager.transition.direction = "left"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Monod"
+                    on_release:
+                        app.root.current = "Monod_MP3"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Andrews"
+                    on_release:
+                        app.root.current = "Andrews_MP3"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.0}
+                    text: "Aiba Shoda Nagatani"
+                    on_release:
+                        app.root.current = "Aiba_Shoda_Nagatani_MP3"
+                        root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
                 pos_hint: {'center_x': 0.5, 'top':0.3}
@@ -489,6 +568,18 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto parcialmente associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -500,17 +591,6 @@ WindowManager:
                     icon: 'folder'
                     on_release: root.show_load()
 
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
@@ -520,6 +600,9 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "right"
 
@@ -528,6 +611,18 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto parcialmente associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
@@ -539,17 +634,6 @@ WindowManager:
                     icon: 'folder'
                     on_release: root.show_load()
 
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
-
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatButton:
@@ -559,6 +643,9 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "right"
 
@@ -568,27 +655,28 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
+        MDTopAppBar:
+            title: "Modelagem - Produto parcialmente associado ao crescimento"
+
+        MDBoxLayout:
+            MDFloatLayout:
+                MDLabel:
+                    pos_hint: {'center_x': 0.58, 'top':0.4}
+                    size_hint_y: 0.25
+                    size_hint_x: 0.8
+                    height: 30
+                    text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+
         MDBoxLayout:
             MDFloatLayout:
                 MDRoundFlatIconButton:
                     pos_hint: {'center_x': 0.5, 'top':0.8}
-                    size_hint_y: 0.15
+                    size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
                     text: 'Load excel file'
                     icon: 'folder'
                     on_release: root.show_load()
-
-
-        MDBoxLayout:
-            MDFloatLayout:
-                MDRoundFlatButton:
-                    pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.25
-                    size_hint_x: 0.2
-                    height: 30
-                    text: 'Iniciar modelagem'
-                    on_release: root.show_result(), root.reload_f()
 
         MDBoxLayout:
             MDFloatLayout:
@@ -599,6 +687,9 @@ WindowManager:
                     height: 30
                     text: 'Voltar'
                     on_release:
+                        root.limpar_arquivo()
+                        root.limpar_caminho()
+                        root.reload_f()
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "right"
 
@@ -782,6 +873,15 @@ WindowManager:
                 text: "Mi"
                 on_press: root.m_mi_grafico()
 
+    MDBoxLayout:
+        size_hint_y: 0.08
+        pos: root.pos
+        MDFloatLayout:
+            MDRectangleFlatButton:
+                pos_hint:{'center_x':0.5, 'center_y':0.2}
+                text: "Voltar"
+                on_release: root.cancel2()
+
 <ResultDialog_Mod_Andrews2>
     MDBoxLayout:
         id: tabela1
@@ -856,8 +956,6 @@ WindowManager:
                 pos_hint: {'center_x':0.7, 'center_y':0.3}
                 text: "Mi"
                 on_press: root.m_mi_grafico()
-
-
 
     MDBoxLayout:
         size_hint_y: 0.08
@@ -1002,6 +1100,8 @@ WindowManager:
         orientation: 'vertical'
         MDBoxLayout:
             orientation: 'vertical'
+            MDTopAppBar:
+                title: "Simulação"
             MDFloatLayout:
                 MDLabel:
                     pos_hint: {'center_x': 0.85, 'top': 0.8}
@@ -1012,21 +1112,19 @@ WindowManager:
                     text: "Associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_S1"
-                        root.manager.transition.direction = "right"
+                        root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.4}
                     text: "Não associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_S2"
-                        root.manager.transition.direction = "right"
+                        root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0}
                     text: "Parcialmente associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_S3"
-                        root.manager.transition.direction = "right"
-
-
+                        root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
                 pos_hint: {'center_x': 0.5, 'top':0.3}
@@ -1036,38 +1134,40 @@ WindowManager:
                 text: 'Voltar'
                 on_release:
                     app.root.current = "home"
-                    root.manager.transition.direction = "left"
+                    root.manager.transition.direction = "right"
 
 
 <Escolha_S1>:
     name: "Escolha_S1"
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto associado ao crescimento"
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1}
+                    pos_hint: {'center_x': 0.77, 'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
-                MDFloatLayout:
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':1.0}
-                        text: "Monod"
-                        on_release:
-                            app.root.current = "Monod_SP1"
-                            root.manager.transition.direction = "right"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.8}
-                        text: "Andrews"
-                        on_release:
-                            app.root.current = "Andrews_SP1"
-                            root.manager.transition.direction = "right"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.6}
-                        text: "Aiba Shoda Nagatani"
-                        on_release:
-                            app.root.current = "Aiba_Shoda_Nagatani_SP1"
-                            root.manager.transition.direction = "right"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Monod"
+                    on_release:
+                        app.root.current = "Monod_SP1"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Andrews"
+                    on_release:
+                        app.root.current = "Andrews_SP1"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.0}
+                    text: "Aiba Shoda Nagatani"
+                    on_release:
+                        app.root.current = "Aiba_Shoda_Nagatani_SP1"
+                        root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
                 pos_hint: {'center_x': 0.5, 'top':0.3}
@@ -1077,12 +1177,14 @@ WindowManager:
                 text: 'Voltar'
                 on_release:
                     app.root.current = "simulacao"
-                    root.manager.transition.direction = "left"
+                    root.manager.transition.direction = "right"
 
 <Monod_SP1>:
     name: 'Monod_SP1'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t1
@@ -1160,12 +1262,14 @@ WindowManager:
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S1"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <Andrews_SP1>:
     name: 'Andrews_SP1'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t1
@@ -1250,12 +1354,14 @@ WindowManager:
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S1"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <Aiba_Shoda_Nagatani_SP1>:
     name: 'Aiba_Shoda_Nagatani_SP1'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t1
@@ -1340,38 +1446,40 @@ WindowManager:
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S1"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 
 <Escolha_S2>:
     name: "Escolha_S2"
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto não associado ao crescimento"
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1}
+                    pos_hint: {'center_x': 0.77, 'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
-                MDFloatLayout:
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':1.0}
-                        text: "Monod"
-                        on_release:
-                            app.root.current = "Monod_SP2"
-                            root.manager.transition.direction = "right"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.8}
-                        text: "Andrews"
-                        on_release:
-                            app.root.current = "Andrews_SP2"
-                            root.manager.transition.direction = "right"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.6}
-                        text: "Aiba Shoda Nagatani"
-                        on_release:
-                            app.root.current = "Aiba_Shoda_Nagatani_SP2"
-                            root.manager.transition.direction = "right"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Monod"
+                    on_release:
+                        app.root.current = "Monod_SP2"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Andrews"
+                    on_release:
+                        app.root.current = "Andrews_SP2"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.0}
+                    text: "Aiba Shoda Nagatani"
+                    on_release:
+                        app.root.current = "Aiba_Shoda_Nagatani_SP2"
+                        root.manager.transition.direction = "left"
 
         MDFloatLayout:
             MDRoundFlatButton:
@@ -1382,12 +1490,14 @@ WindowManager:
                 text: 'Voltar'
                 on_release:
                     app.root.current = "simulacao"
-                    root.manager.transition.direction = "left"
+                    root.manager.transition.direction = "right"
 
 <Monod_SP2>:
     name: 'Monod_SP2'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto não associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t2
@@ -1450,7 +1560,7 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Iniciar simulação'
@@ -1458,18 +1568,20 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S2"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <Andrews_SP2>:
     name: 'Andrews_SP2'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto não associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t2
@@ -1539,7 +1651,7 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Iniciar simulação'
@@ -1547,18 +1659,20 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S2"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <Aiba_Shoda_Nagatani_SP2>:
     name: 'Aiba_Shoda_Nagatani_SP2'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto não associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t2
@@ -1628,7 +1742,7 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Iniciar simulação'
@@ -1636,43 +1750,45 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S2"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <Escolha_S3>:
     name: "Escolha_S3"
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto parcialmente associado ao crescimento"
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1}
+                    pos_hint: {'center_x': 0.77, 'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
-                MDFloatLayout:
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':1.0}
-                        text: "Monod"
-                        on_release:
-                            app.root.current = "Monod_SP3"
-                            root.manager.transition.direction = "right"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.8}
-                        text: "Andrews"
-                        on_release:
-                            app.root.current = "Andrews_SP3"
-                            root.manager.transition.direction = "right"
-                    MDRectangleFlatButton:
-                        pos_hint:{'center_x': 0.5, 'top':0.6}
-                        text: "Aiba Shoda Nagatani"
-                        on_release:
-                            app.root.current = "Aiba_Shoda_Nagatani_SP3"
-                            root.manager.transition.direction = "right"
+            MDFloatLayout:
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    text: "Monod"
+                    on_release:
+                        app.root.current = "Monod_SP3"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    text: "Andrews"
+                    on_release:
+                        app.root.current = "Andrews_SP3"
+                        root.manager.transition.direction = "left"
+                MDRectangleFlatButton:
+                    pos_hint:{'center_x': 0.5, 'top':0.0}
+                    text: "Aiba Shoda Nagatani"
+                    on_release:
+                        app.root.current = "Aiba_Shoda_Nagatani_SP3"
+                        root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
                 pos_hint: {'center_x': 0.5, 'top':0.3}
@@ -1682,12 +1798,14 @@ WindowManager:
                 text: 'Voltar'
                 on_release:
                     app.root.current = "simulacao"
-                    root.manager.transition.direction = "left"
+                    root.manager.transition.direction = "right"
 
 <Monod_SP3>:
     name: 'Monod_SP3'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto parcialmente associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t3
@@ -1757,7 +1875,7 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Iniciar simulação'
@@ -1766,18 +1884,20 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S3"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <Andrews_SP3>:
     name: 'Andrews_SP3'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - Produto parcialmente associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t3
@@ -1854,7 +1974,7 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Iniciar simulação'
@@ -1863,18 +1983,20 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.65
                     size_hint_x: 0.3
                     height: 30
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S3"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <Aiba_Shoda_Nagatani_SP3>:
     name: 'Aiba_Shoda_Nagatani_SP3'
     MDBoxLayout:
         orientation: 'vertical'
+        MDTopAppBar:
+            title: "Simulação - - Produto parcialmente associado ao crescimento"
         MDFloatLayout:
             MDTextField:
                 id: t3
@@ -1951,7 +2073,7 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.70
                     size_hint_x: 0.3
                     height: 30
                     text: 'Iniciar simulação'
@@ -1960,13 +2082,13 @@ WindowManager:
             MDFloatLayout:
                 MDRoundFlatButton:
                     pos_hint: {'center_x': 0.5, 'top':0.6}
-                    size_hint_y: 0.55
+                    size_hint_y: 0.70
                     size_hint_x: 0.3
                     height: 30
                     text: 'Voltar'
                     on_release:
                         app.root.current = "Escolha_S3"
-                        root.manager.transition.direction = "left"
+                        root.manager.transition.direction = "right"
 
 <ResultDialog_Sim1>
     MDBoxLayout:

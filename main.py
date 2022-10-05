@@ -11,12 +11,15 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 import pandas as pd
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton, MDRoundFlatButton
 from importlib import reload
+import webbrowser as wb
+
 
 class LoadDialog(MDBoxLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
+    card = ObjectProperty(None)
 
 class ResultDialog1(FloatLayout):
     def __init__(self, **kwargs):
@@ -594,8 +597,10 @@ class ResultDialog_Aiba_Sim3(FloatLayout):
 
     cancel7 = ObjectProperty(None)
 
+
 class Home(Screen):
-    pass
+    def documentacao(self):
+        return wb.open("https://fonseca-brunoc.github.io")
 
 class Modelagem(Screen):
     pass
@@ -608,12 +613,15 @@ class Monod_MP1(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_1 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_1 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_1,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -629,22 +637,33 @@ class Monod_MP1(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog1(cancel2=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -672,6 +691,18 @@ class Monod_MP1(Screen):
             return reload(modelagem)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Moser_MP1(Screen):
     pass
 
@@ -683,12 +714,15 @@ class Andrews_MP1(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_1 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_1 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_1,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -704,22 +738,34 @@ class Andrews_MP1(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog_Mod_Andrews1(cancel2=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -747,6 +793,18 @@ class Andrews_MP1(Screen):
             return reload(mod_andrews)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Levenspiel_MP1(Screen):
     pass
 
@@ -755,12 +813,15 @@ class Aiba_Shoda_Nagatani_MP1(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_1 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_1 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_1,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -776,22 +837,33 @@ class Aiba_Shoda_Nagatani_MP1(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog_Mod_Aiba1(cancel2=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -819,6 +891,18 @@ class Aiba_Shoda_Nagatani_MP1(Screen):
             return reload(mod_aiba_shoda)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Escolha_M2(Screen):
     pass
 
@@ -827,12 +911,15 @@ class Monod_MP2(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_2 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_2 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_2,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -848,22 +935,33 @@ class Monod_MP2(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog2(cancel3=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -891,6 +989,18 @@ class Monod_MP2(Screen):
             return reload(modelagem)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Moser_MP2(Screen):
     pass
 
@@ -902,12 +1012,15 @@ class Andrews_MP2(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_1 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_1 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_1,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -923,22 +1036,33 @@ class Andrews_MP2(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog_Mod_Andrews2(cancel2=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -966,6 +1090,18 @@ class Andrews_MP2(Screen):
             return reload(mod_andrews)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Levenspiel_MP2(Screen):
     pass
 
@@ -974,12 +1110,15 @@ class Aiba_Shoda_Nagatani_MP2(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_1 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_1 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_1,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -995,22 +1134,33 @@ class Aiba_Shoda_Nagatani_MP2(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog_Mod_Aiba2(cancel2=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -1038,6 +1188,19 @@ class Aiba_Shoda_Nagatani_MP2(Screen):
             return reload(mod_aiba_shoda)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Escolha_M3(Screen):
     pass
 
@@ -1046,13 +1209,16 @@ class Monod_MP3(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_3 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_3 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_3,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -1068,26 +1234,36 @@ class Monod_MP3(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog3(cancel4=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
-
 
     def model(self):
         import modelagem
@@ -1111,6 +1287,18 @@ class Monod_MP3(Screen):
             return reload(modelagem)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Moser_MP3(Screen):
     pass
 
@@ -1122,12 +1310,15 @@ class Andrews_MP3(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_1 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_1 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_1,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -1143,22 +1334,33 @@ class Andrews_MP3(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog_Mod_Andrews3(cancel2=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -1186,6 +1388,18 @@ class Andrews_MP3(Screen):
             return reload(mod_andrews)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Levenspiel_MP3(Screen):
     pass
 
@@ -1194,12 +1408,15 @@ class Aiba_Shoda_Nagatani_MP3(Screen):
         self._popup.dismiss()
 
     def show_load(self):
-        content_1 = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        content_1 = LoadDialog(load=self.load, cancel=self.card)
         self._popup = Popup(title="Load file", content=content_1,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        arq_txt = open("caminho.txt", "a")
+        arq_txt.write(f'{os.path.join(path, filename[0])}')
+
         cwd = os.getcwd()
 
         path_splited = path.split()
@@ -1215,22 +1432,33 @@ class Aiba_Shoda_Nagatani_MP3(Screen):
         file_newname_newfile = os.path.join(destino, 'Dados.xlsx')
         shutil.move(filename2, file_newname_newfile)
 
-    def show_result(self):
+    def card(self):
+        local = os.getcwd()
+
+        if os.path.isfile(local + '/caminho.txt'):
+            nome = open("caminho.txt", "r")
+            nome = nome.read()
+            nome = str(nome)
+
+            iniciar_button = MDRoundFlatButton(text= 'Iniciar modelagem', on_release = self.show_result)
+            close_button = MDFlatButton(text = 'Cancelar', on_release = self.close_dialog)
+            self.dialog = MDDialog(text = f'{nome}',
+                               size_hint=(0.5, 1),
+                               buttons=[iniciar_button, close_button])
+            self.dialog.open()
+        self._popup.dismiss()
+
+    def show_result(self, obj):
         local = os.getcwd()
         if os.path.isfile(local + '/Dados.xlsx'):
             content_1_2 = ResultDialog_Mod_Aiba3(cancel2=self.dismiss_popup)
             self._popup = Popup(title="Resultados", content=content_1_2,
                                 size_hint=(0.9, 0.9), background='lightgray', title_color=(0, 0, 0, 1))
             self._popup.open()
-        else:
-            self.alerta_dialog()
+            self.limpar_caminho()
 
-    def alerta_dialog(self):
-        close_button = MDFlatButton(text = 'Fechar', on_release=self.close_dialog)
-        self.dialog = MDDialog(title = 'Ops! Nenhum arquivo foi selecionado.', text = 'Escolha um arquivo no formato .xlsx para prosseguir a modelagem',
-                               size_hint=(0.5, 1),
-                               buttons=[close_button])
-        self.dialog.open()
+        else:
+            pass
 
     def close_dialog(self, obj):
         self.dialog.dismiss()
@@ -1258,9 +1486,20 @@ class Aiba_Shoda_Nagatani_MP3(Screen):
             return reload(mod_aiba_shoda)
         else: pass
 
+    def limpar_arquivo(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/Dados.xlsx'):
+            return os.remove('Dados.xlsx')
+        else: pass
+
+    def limpar_caminho(self):
+        local = os.getcwd()
+        if os.path.isfile(local + '/caminho.txt'):
+            return os.remove('caminho.txt')
+        else: pass
+
 class Simulacao(Screen):
     pass
-
 
 class Escolha_S1(Screen):
     pass
@@ -1359,7 +1598,6 @@ class Andrews_SP1(Screen):
         with pd.ExcelWriter('Parâmetros_Andrews_Sim.xlsx') as writer:
             df_concents_andrews_s1.to_excel(writer, sheet_name="Output_concent")
             writer.save()
-
 
     def dismiss_popup(self):
         self._popup.dismiss()
