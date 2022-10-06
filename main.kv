@@ -73,6 +73,7 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
+            title: "Home"
             left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
@@ -92,7 +93,6 @@ WindowManager:
         id: nav_drawer
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
-
             MDNavigationDrawerHeader:
                 title: "Header title"
                 title_color: "#4a4939"
@@ -117,6 +117,7 @@ WindowManager:
                 #icon: "send"
                 text: "Simulação"
                 on_press:
+                    nav_drawer.set_state("close")
                     app.root.current = "simulacao"
                     root.manager.transition.direction = "left"
 
@@ -125,6 +126,7 @@ WindowManager:
             DrawerClickableItem:
                 text: "Modelagem"
                 on_press:
+                    nav_drawer.set_state("close")
                     app.root.current = "modelagem"
                     root.manager.transition.direction = "left"
 
@@ -133,46 +135,78 @@ WindowManager:
     MDBoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
             title: "Modelagem"
+
         MDBoxLayout:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 0.8}
+                    pos_hint: {'center_x': 0.85, 'top': 1}
                     text: "Qual o tipo de produto do processo?"
             MDFloatLayout:
                 MDRectangleFlatButton:
-                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    pos_hint:{'center_x': 0.5, 'top':1.25}
                     text: "Associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "left"
 
                 MDRectangleFlatButton:
-                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    pos_hint:{'center_x': 0.5, 'top':1.05}
                     text: "Não associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "left"
 
                 MDRectangleFlatButton:
-                    pos_hint:{'center_x': 0.5, 'top':0}
+                    pos_hint:{'center_x': 0.5, 'top':0.85}
                     text: "Parcialmente associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "left"
 
-        MDFloatLayout:
-            MDRoundFlatButton:
-                pos_hint: {'center_x': 0.5, 'top':0.3}
-                size_hint_y: 0.15
-                size_hint_x: 0.2
-                height: 30
-                text: 'Voltar'
-                on_release:
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
                     app.root.current = "home"
                     root.manager.transition.direction = "right"
 
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                #on_press:
+                    #nav_drawer.set_state("close")
+                    #app.root.current = "modelagem"
+                    #root.manager.transition.direction = "left"
 
 <Escolha_M1>:
     name: "Escolha_M1"
@@ -226,6 +260,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -261,6 +296,48 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Andrews_MP1>:
     name: "Andrews_MP1"
@@ -269,6 +346,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -305,6 +383,48 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Aiba_Shoda_Nagatani_MP1>:
     name: "Aiba_Shoda_Nagatani_MP1"
@@ -313,6 +433,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -348,6 +469,48 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M1"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 
 <Escolha_M2>:
@@ -399,6 +562,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto não associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -434,6 +598,48 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Andrews_MP2>:
     name: "Andrews_MP2"
@@ -442,6 +648,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto não associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -477,6 +684,46 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
 
 <Aiba_Shoda_Nagatani_MP2>:
     name: "Aiba_Shoda_Nagatani_MP2"
@@ -485,6 +732,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto não associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -520,6 +768,48 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M2"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Escolha_M3>:
     name: "Escolha_M3"
@@ -570,6 +860,8 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto parcialmente associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
+
 
         MDBoxLayout:
             MDFloatLayout:
@@ -605,6 +897,47 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
 
 <Andrews_MP3>:
     name: "Andrews_MP3"
@@ -613,6 +946,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto parcialmente associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -649,6 +983,47 @@ WindowManager:
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "right"
 
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Aiba_Shoda_Nagatani_MP3>:
     name: "Aiba_Shoda_Nagatani_MP3"
@@ -657,6 +1032,7 @@ WindowManager:
         size: root.width, root.height
         MDTopAppBar:
             title: "Modelagem - Produto parcialmente associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
             MDFloatLayout:
@@ -692,6 +1068,48 @@ WindowManager:
                         root.reload_f()
                         app.root.current = "Escolha_M3"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <LoadDialog>:
     MDBoxLayout:
@@ -1102,40 +1520,72 @@ WindowManager:
             orientation: 'vertical'
             MDTopAppBar:
                 title: "Simulação"
+                left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 0.8}
+                    pos_hint: {'center_x': 0.85, 'top': 1.0}
                     text: "Qual o tipo de produto do processo?"
             MDFloatLayout:
                 MDRectangleFlatButton:
-                    pos_hint:{'center_x': 0.5, 'top':0.8}
+                    pos_hint:{'center_x': 0.5, 'top':1.25}
                     text: "Associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_S1"
                         root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
-                    pos_hint:{'center_x': 0.5, 'top':0.4}
+                    pos_hint:{'center_x': 0.5, 'top':1.05}
                     text: "Não associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_S2"
                         root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
-                    pos_hint:{'center_x': 0.5, 'top':0}
+                    pos_hint:{'center_x': 0.5, 'top':0.85}
                     text: "Parcialmente associado ao crescimento"
                     on_release:
                         app.root.current = "Escolha_S3"
                         root.manager.transition.direction = "left"
-        MDFloatLayout:
-            MDRoundFlatButton:
-                pos_hint: {'center_x': 0.5, 'top':0.3}
-                size_hint_y: 0.15
-                size_hint_x: 0.2
-                height: 30
-                text: 'Voltar'
-                on_release:
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
                     app.root.current = "home"
                     root.manager.transition.direction = "right"
 
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                #on_press:
+                    #nav_drawer.set_state("close")
+                    #app.root.current = "simulacao"
+                    #root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Escolha_S1>:
     name: "Escolha_S1"
@@ -1185,6 +1635,7 @@ WindowManager:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t1
@@ -1264,12 +1715,55 @@ WindowManager:
                         app.root.current = "Escolha_S1"
                         root.manager.transition.direction = "right"
 
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
+
 <Andrews_SP1>:
     name: 'Andrews_SP1'
     MDBoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t1
@@ -1355,6 +1849,46 @@ WindowManager:
                     on_release:
                         app.root.current = "Escolha_S1"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
 
 <Aiba_Shoda_Nagatani_SP1>:
     name: 'Aiba_Shoda_Nagatani_SP1'
@@ -1362,6 +1896,7 @@ WindowManager:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t1
@@ -1448,6 +1983,47 @@ WindowManager:
                         app.root.current = "Escolha_S1"
                         root.manager.transition.direction = "right"
 
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Escolha_S2>:
     name: "Escolha_S2"
@@ -1498,6 +2074,7 @@ WindowManager:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto não associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t2
@@ -1554,7 +2131,6 @@ WindowManager:
                 helper_text: "Constante do produto não associado ao crescimento"
                 helper_text_mode: "persistent"
                 pos_hint: {"center_x":0.55, "center_y":0.5}
-
         MDBoxLayout:
             orientation: 'horizontal'
             MDFloatLayout:
@@ -1575,6 +2151,48 @@ WindowManager:
                     on_release:
                         app.root.current = "Escolha_S2"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Andrews_SP2>:
     name: 'Andrews_SP2'
@@ -1582,6 +2200,7 @@ WindowManager:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto não associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t2
@@ -1666,6 +2285,47 @@ WindowManager:
                     on_release:
                         app.root.current = "Escolha_S2"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
 
 <Aiba_Shoda_Nagatani_SP2>:
     name: 'Aiba_Shoda_Nagatani_SP2'
@@ -1673,6 +2333,8 @@ WindowManager:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto não associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
+
         MDFloatLayout:
             MDTextField:
                 id: t2
@@ -1757,6 +2419,48 @@ WindowManager:
                     on_release:
                         app.root.current = "Escolha_S2"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Escolha_S3>:
     name: "Escolha_S3"
@@ -1806,6 +2510,7 @@ WindowManager:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto parcialmente associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t3
@@ -1892,12 +2597,55 @@ WindowManager:
                         app.root.current = "Escolha_S3"
                         root.manager.transition.direction = "right"
 
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
+
 <Andrews_SP3>:
     name: 'Andrews_SP3'
     MDBoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - Produto parcialmente associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t3
@@ -1990,6 +2738,47 @@ WindowManager:
                     on_release:
                         app.root.current = "Escolha_S3"
                         root.manager.transition.direction = "right"
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <Aiba_Shoda_Nagatani_SP3>:
     name: 'Aiba_Shoda_Nagatani_SP3'
@@ -1997,6 +2786,7 @@ WindowManager:
         orientation: 'vertical'
         MDTopAppBar:
             title: "Simulação - - Produto parcialmente associado ao crescimento"
+            left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
         MDFloatLayout:
             MDTextField:
                 id: t3
@@ -2089,6 +2879,48 @@ WindowManager:
                     on_release:
                         app.root.current = "Escolha_S3"
                         root.manager.transition.direction = "right"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        radius: (0, 16, 16, 0)
+        MDNavigationDrawerMenu:
+            MDNavigationDrawerHeader:
+                title: "Header title"
+                title_color: "#4a4939"
+                text: "Header text"
+                spacing: "4dp"
+                padding: "12dp", 0, 0, "56dp"
+
+            MDNavigationDrawerLabel:
+                text: "Onde ir?"
+
+            DrawerClickableItem:
+                #icon: "gmail"
+                text_right_color: "#4a4939"
+                text: "Home"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                #icon: "send"
+                text: "Simulação"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "simulacao"
+                    root.manager.transition.direction = "left"
+
+            MDNavigationDrawerDivider:
+
+            DrawerClickableItem:
+                text: "Modelagem"
+                on_press:
+                    nav_drawer.set_state("close")
+                    app.root.current = "modelagem"
+                    root.manager.transition.direction = "left"
 
 <ResultDialog_Sim1>
     MDBoxLayout:
