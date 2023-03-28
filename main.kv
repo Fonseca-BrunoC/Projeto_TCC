@@ -20,52 +20,34 @@ WindowManager:
 
     Escolha_M1:
     Monod_MP1:
-    Moser_MP1:
-    Tessier_MP1:
     Andrews_MP1:
-    Levenspiel_MP1:
-    Aiba_Shoda_Nagatani_MP1:
+    Levenspinel_MP1:
 
     Escolha_M2:
     Monod_MP2:
-    Moser_MP2:
-    Tessier_MP2:
     Andrews_MP2:
-    Levenspiel_MP2:
-    Aiba_Shoda_Nagatani_MP2:
+    Levenspinel_MP2:
 
     Escolha_M3:
     Monod_MP3:
-    Moser_MP3:
-    Tessier_MP3:
     Andrews_MP3:
-    Levenspiel_MP3:
-    Aiba_Shoda_Nagatani_MP3
+    Levenspinel_MP3:
 
     Simulacao:
     Escolha_S1:
     Monod_SP1:
-    Moser_SP1:
-    Tessier_SP1:
     Andrews_SP1:
-    Levenspiel_SP1:
-    Aiba_Shoda_Nagatani_SP1:
+    Levenspinel_SP1:
 
     Escolha_S2:
     Monod_SP2:
-    Moser_SP2:
-    Tessier_SP2:
     Andrews_SP2:
-    Levenspiel_SP2:
-    Aiba_Shoda_Nagatani_SP2:
+    Levenspinel_SP2:
 
     Escolha_S3:
     Monod_SP3:
-    Moser_SP3:
-    Tessier_SP3:
     Andrews_SP3:
-    Levenspiel_SP3:
-    Aiba_Shoda_Nagatani_SP3:
+    Levenspinel_SP3:
 
 
 <Home>:
@@ -77,12 +59,21 @@ WindowManager:
             left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
 
         MDBoxLayout:
+            orientation: 'vertical'
+            size: root.width, root.height
+            MDBoxLayout:
+                pos_hint: {'center_x': 0.5, 'top':0.8}
+                MDLabel:
+                    text: "\n\n\n Bem vindo ao SiMoBio!\n\n\n Este programa realiza simulações e modelagens de processos fermentativos de um modo bem intuitivo! Para isso, basta acessar o menu no canto superior esquerdo da tela e escolher sua função de interesse.\n\n Caso tenha alguma dúvida sobre o embasamento teórico ou de como utilizar o programa corretamente, acesse o site do projeto onde estão dispostos os conceitos teóricos e matemáticos por trás das simulações modelagens, além de um tutorial sobre como realizá-las. Para acessar o site, basta clicar no botão da documentação logo abaixo."
+                    halign: 'center'
+                    padding_x: 20
+        MDBoxLayout:
             orientation: 'horizontal'
             size: root.width, root.height
             MDBoxLayout:
                 MDFloatLayout:
                     MDRoundFlatButton:
-                        pos_hint: {'center_x': 0.5, 'top':0.25}
+                        pos_hint: {'center_x': 0.5, 'top':0.8}
                         size_hint_y: 0.15
                         size_hint_x: 0.5
                         height: 30
@@ -94,9 +85,10 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
+                source: "logo_simobio5.png"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
 
@@ -142,8 +134,9 @@ WindowManager:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1}
+                    pos_hint: {'top': 1}
                     text: "Qual o tipo de produto do processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':1.25}
@@ -171,9 +164,10 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
+                source: "logo_simobio5.png"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
 
@@ -218,8 +212,9 @@ WindowManager:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.77, 'top': 0.8}
+                    pos_hint: {'top': 0.8}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.8}
@@ -237,9 +232,9 @@ WindowManager:
 
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.0}
-                    text: "Aiba Shoda Nagatani"
+                    text: "Levenspiel"
                     on_release:
-                        app.root.current = "Aiba_Shoda_Nagatani_MP1"
+                        app.root.current = "Levenspinel_MP1"
                         root.manager.transition.direction = "left"
 
         MDFloatLayout:
@@ -270,6 +265,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -278,7 +274,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -302,10 +298,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -356,6 +353,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -364,7 +362,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -389,10 +387,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -426,8 +425,8 @@ WindowManager:
                     app.root.current = "modelagem"
                     root.manager.transition.direction = "left"
 
-<Aiba_Shoda_Nagatani_MP1>:
-    name: "Aiba_Shoda_Nagatani_MP1"
+<Levenspinel_MP1>:
+    name: "Levenspinel_MP1"
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
@@ -443,6 +442,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -451,7 +451,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -475,10 +475,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -523,8 +524,9 @@ WindowManager:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.77, 'top': 1}
+                    pos_hint: {'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.8}
@@ -540,9 +542,9 @@ WindowManager:
                         root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.0}
-                    text: "Aiba Shoda Nagatani"
+                    text: "Levenspiel"
                     on_release:
-                        app.root.current = "Aiba_Shoda_Nagatani_MP2"
+                        app.root.current = "Levenspinel_MP2"
                         root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
@@ -572,6 +574,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -580,7 +583,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -604,10 +607,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SimoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -658,6 +662,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -666,7 +671,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -690,10 +695,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -725,8 +731,8 @@ WindowManager:
                 on_press:
                     nav_drawer.set_state("close")
 
-<Aiba_Shoda_Nagatani_MP2>:
-    name: "Aiba_Shoda_Nagatani_MP2"
+<Levenspinel_MP2>:
+    name: "Levenspinel_MP2"
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
@@ -742,6 +748,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -750,7 +757,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -774,10 +781,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -821,8 +829,9 @@ WindowManager:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.77, 'top': 1}
+                    pos_hint: {'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.8}
@@ -838,9 +847,9 @@ WindowManager:
                         root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.0}
-                    text: "Aiba Shoda Nagatani"
+                    text: "Levenspiel"
                     on_release:
-                        app.root.current = "Aiba_Shoda_Nagatani_MP3"
+                        app.root.current = "Levenspinel_MP3"
                         root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
@@ -871,6 +880,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -879,7 +889,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -903,11 +913,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -956,6 +967,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -964,7 +976,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -988,10 +1000,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -1025,8 +1038,8 @@ WindowManager:
                     app.root.current = "modelagem"
                     root.manager.transition.direction = "left"
 
-<Aiba_Shoda_Nagatani_MP3>:
-    name: "Aiba_Shoda_Nagatani_MP3"
+<Levenspinel_MP3>:
+    name: "Levenspinel_MP3"
     MDBoxLayout:
         orientation: 'vertical'
         size: root.width, root.height
@@ -1042,6 +1055,7 @@ WindowManager:
                     size_hint_x: 0.8
                     height: 30
                     text: 'Escolha um arquivo excel no formato .xlsx correspondente aos dados do processo'
+                    halign: 'center'
 
         MDBoxLayout:
             MDFloatLayout:
@@ -1050,7 +1064,7 @@ WindowManager:
                     size_hint_y: 0.25
                     size_hint_x: 0.2
                     height: 30
-                    text: 'Load excel file'
+                    text: 'Carregar arquivo .xlsx'
                     icon: 'folder'
                     on_release: root.show_load()
 
@@ -1074,10 +1088,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "SiMoBio"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -1141,7 +1156,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.3, 'center_y':0.3}
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
                 text: "Modelagem"
                 on_press: root.m_grafico()
 
@@ -1150,7 +1165,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                pos_hint: {'center_x':0.3, 'center_y':0.3}
                 text: "Produtividade"
                 on_press: root.m_prod_grafico()
 
@@ -1269,7 +1284,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.3, 'center_y':0.3}
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
                 text: "Modelagem"
                 on_press: root.m_grafico()
 
@@ -1278,7 +1293,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                pos_hint: {'center_x':0.3, 'center_y':0.3}
                 text: "Produtividade"
                 on_press: root.m_prod_grafico()
 
@@ -1311,7 +1326,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.3, 'center_y':0.3}
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
                 text: "Modelagem"
                 on_press: root.m_grafico()
 
@@ -1320,7 +1335,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                pos_hint: {'center_x':0.3, 'center_y':0.3}
                 text: "Produtividade"
                 on_press: root.m_prod_grafico()
 
@@ -1353,7 +1368,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.3, 'center_y':0.3}
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
                 text: "Modelagem"
                 on_press: root.m_grafico()
 
@@ -1362,7 +1377,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                pos_hint: {'center_x':0.3, 'center_y':0.3}
                 text: "Produtividade"
                 on_press: root.m_prod_grafico()
 
@@ -1385,7 +1400,7 @@ WindowManager:
                 on_release: root.cancel2()
 
 
-<ResultDialog_Mod_Aiba1>
+<ResultDialog_Mod_Levenspinel1>
     MDBoxLayout:
         id: tabela1
         pos: root.pos
@@ -1396,7 +1411,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.3, 'center_y':0.3}
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
                 text: "Modelagem"
                 on_press: root.m_grafico()
 
@@ -1405,7 +1420,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                pos_hint: {'center_x':0.3, 'center_y':0.3}
                 text: "Produtividade"
                 on_press: root.m_prod_grafico()
 
@@ -1427,7 +1442,7 @@ WindowManager:
                 text: "Voltar"
                 on_release: root.cancel2()
 
-<ResultDialog_Mod_Aiba2>
+<ResultDialog_Mod_Levenspinel2>
     MDBoxLayout:
         id: tabela1
         pos: root.pos
@@ -1438,7 +1453,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.3, 'center_y':0.3}
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
                 text: "Modelagem"
                 on_press: root.m_grafico()
 
@@ -1447,7 +1462,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                pos_hint: {'center_x':0.3, 'center_y':0.3}
                 text: "Produtividade"
                 on_press: root.m_prod_grafico()
 
@@ -1469,7 +1484,7 @@ WindowManager:
                 text: "Voltar"
                 on_release: root.cancel2()
 
-<ResultDialog_Mod_Aiba3>
+<ResultDialog_Mod_Levenspinel3>
     MDBoxLayout:
         id: tabela1
         pos: root.pos
@@ -1480,7 +1495,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.3, 'center_y':0.3}
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
                 text: "Modelagem"
                 on_press: root.m_grafico()
 
@@ -1489,7 +1504,7 @@ WindowManager:
         orientation: 'horizontal'
         MDFloatLayout:
             MDRectangleFlatButton:
-                pos_hint: {'center_x':0.5, 'center_y':0.3}
+                pos_hint: {'center_x':0.3, 'center_y':0.3}
                 text: "Produtividade"
                 on_press: root.m_prod_grafico()
 
@@ -1523,8 +1538,9 @@ WindowManager:
                 left_action_items:[['menu', lambda x: nav_drawer.set_state("open")]]
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.85, 'top': 1.0}
+                    pos_hint: {'top': 1.0}
                     text: "Qual o tipo de produto do processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':1.25}
@@ -1550,11 +1566,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -1597,8 +1614,9 @@ WindowManager:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.77, 'top': 1}
+                    pos_hint: {'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.8}
@@ -1614,9 +1632,9 @@ WindowManager:
                         root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.0}
-                    text: "Aiba Shoda Nagatani"
+                    text: "Levenspiel"
                     on_release:
-                        app.root.current = "Aiba_Shoda_Nagatani_SP1"
+                        app.root.current = "Levenspinel_SP1"
                         root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
@@ -1720,10 +1738,11 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
+                source: "logo_simobio5.png"
                 padding: "12dp", 0, 0, "56dp"
 
             MDNavigationDrawerLabel:
@@ -1855,11 +1874,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -1890,8 +1910,8 @@ WindowManager:
                 on_press:
                     nav_drawer.set_state("close")
 
-<Aiba_Shoda_Nagatani_SP1>:
-    name: 'Aiba_Shoda_Nagatani_SP1'
+<Levenspinel_SP1>:
+    name: 'Levenspinel_SP1'
     MDBoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
@@ -1934,9 +1954,9 @@ WindowManager:
                 pos_hint: {"center_x":0.55, "center_y":0.5}
         MDFloatLayout:
             MDTextField:
-                id: ki1
-                hint_text: "Ki"
-                helper_text: "Constante de inibição por substrato"
+                id: n1
+                hint_text: "n"
+                helper_text: "parâmetro exponencial"
                 helper_text_mode: "persistent"
                 pos_hint: {"center_x":0.55, "center_y":0.5}
         MDFloatLayout:
@@ -1960,7 +1980,13 @@ WindowManager:
                 helper_text: "Constante do produto associado ao crescimento"
                 helper_text_mode: "persistent"
                 pos_hint: {"center_x":0.55, "center_y":0.5}
-
+        MDFloatLayout:
+            MDTextField:
+                id: cpmax1
+                hint_text: "Cpmax"
+                helper_text: "Concentração limite do produto"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
 
         MDBoxLayout:
             orientation: 'horizontal'
@@ -1988,11 +2014,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -2035,8 +2062,9 @@ WindowManager:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.77, 'top': 1}
+                    pos_hint: {'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.8}
@@ -2052,9 +2080,9 @@ WindowManager:
                         root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.0}
-                    text: "Aiba Shoda Nagatani"
+                    text: "Levenspiel"
                     on_release:
-                        app.root.current = "Aiba_Shoda_Nagatani_SP2"
+                        app.root.current = "Levenspinel_SP2"
                         root.manager.transition.direction = "left"
 
         MDFloatLayout:
@@ -2157,11 +2185,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -2291,11 +2320,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -2327,8 +2357,8 @@ WindowManager:
                     nav_drawer.set_state("close")
                     app.root.current = "modelagem"
 
-<Aiba_Shoda_Nagatani_SP2>:
-    name: 'Aiba_Shoda_Nagatani_SP2'
+<Levenspinel_SP2>:
+    name: 'Levenspinel_SP2'
     MDBoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
@@ -2372,9 +2402,9 @@ WindowManager:
                 pos_hint: {"center_x":0.55, "center_y":0.5}
         MDFloatLayout:
             MDTextField:
-                id: ki2
-                hint_text: "Ki"
-                helper_text: "Constante de inibição por substrato"
+                id: n2
+                hint_text: "n"
+                helper_text: "parâmetro exponencial"
                 helper_text_mode: "persistent"
                 pos_hint: {"center_x":0.55, "center_y":0.5}
         MDFloatLayout:
@@ -2396,6 +2426,13 @@ WindowManager:
                 id: beta2
                 hint_text: "beta"
                 helper_text: "Constante do produto não associado ao crescimento"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cpmax2
+                hint_text: "Cpmax"
+                helper_text: "Concentração limite de produto"
                 helper_text_mode: "persistent"
                 pos_hint: {"center_x":0.55, "center_y":0.5}
 
@@ -2425,11 +2462,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -2472,8 +2510,9 @@ WindowManager:
             orientation: 'vertical'
             MDFloatLayout:
                 MDLabel:
-                    pos_hint: {'center_x': 0.77, 'top': 1}
+                    pos_hint: {'top': 1}
                     text: "Qual o modelo cinético de crescimento utilizado no processo?"
+                    halign: 'center'
             MDFloatLayout:
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.8}
@@ -2489,9 +2528,9 @@ WindowManager:
                         root.manager.transition.direction = "left"
                 MDRectangleFlatButton:
                     pos_hint:{'center_x': 0.5, 'top':0.0}
-                    text: "Aiba Shoda Nagatani"
+                    text: "Levenspinel"
                     on_release:
-                        app.root.current = "Aiba_Shoda_Nagatani_SP3"
+                        app.root.current = "Levenspinel_SP3"
                         root.manager.transition.direction = "left"
         MDFloatLayout:
             MDRoundFlatButton:
@@ -2602,11 +2641,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -2743,11 +2783,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -2780,8 +2821,8 @@ WindowManager:
                     app.root.current = "modelagem"
                     root.manager.transition.direction = "left"
 
-<Aiba_Shoda_Nagatani_SP3>:
-    name: 'Aiba_Shoda_Nagatani_SP3'
+<Levenspinel_SP3>:
+    name: 'Levenspinel_SP3'
     MDBoxLayout:
         orientation: 'vertical'
         MDTopAppBar:
@@ -2824,9 +2865,9 @@ WindowManager:
                 pos_hint: {"center_x":0.55, "center_y":0.5}
         MDFloatLayout:
             MDTextField:
-                id: ki3
-                hint_text: "Ki"
-                helper_text: "Constante de inibição por substrato"
+                id: n3
+                hint_text: "n"
+                helper_text: "parâmetro exponencial"
                 helper_text_mode: "persistent"
                 pos_hint: {"center_x":0.55, "center_y":0.5}
         MDFloatLayout:
@@ -2857,6 +2898,13 @@ WindowManager:
                 helper_text: "Constante do produto não associado ao crescimento"
                 helper_text_mode: "persistent"
                 pos_hint: {"center_x":0.55, "center_y":0.5}
+        MDFloatLayout:
+            MDTextField:
+                id: cpmax3
+                hint_text: "Cpmax"
+                helper_text: "Concentração limite de produto"
+                helper_text_mode: "persistent"
+                pos_hint: {"center_x":0.55, "center_y":0.5}
 
         MDBoxLayout:
             orientation: 'horizontal'
@@ -2885,11 +2933,12 @@ WindowManager:
         radius: (0, 16, 16, 0)
         MDNavigationDrawerMenu:
             MDNavigationDrawerHeader:
-                title: "Header title"
+                title: "SiMoBio"
                 title_color: "#4a4939"
-                text: "Header text"
+                text: "Menu"
                 spacing: "4dp"
                 padding: "12dp", 0, 0, "56dp"
+                source: "logo_simobio5.png"
 
             MDNavigationDrawerLabel:
                 text: "Onde ir?"
@@ -3014,7 +3063,7 @@ WindowManager:
                 text: "Voltar"
                 on_release: root.cancel5()
 
-<ResultDialog_Aiba_Sim1>
+<ResultDialog_Levenspinel_Sim1>
     MDBoxLayout:
         pos: root.pos
         orientation: 'horizontal'
@@ -3154,7 +3203,7 @@ WindowManager:
                 text: "Voltar"
                 on_release: root.cancel6()
 
-<ResultDialog_Aiba_Sim2>
+<ResultDialog_Levenspinel_Sim2>
     MDBoxLayout:
         pos: root.pos
         orientation: 'horizontal'
@@ -3294,7 +3343,7 @@ WindowManager:
                 text: "Voltar"
                 on_release: root.cancel7()
 
-<ResultDialog_Aiba_Sim3>
+<ResultDialog_Levenspinel_Sim3>
     MDBoxLayout:
         pos: root.pos
         orientation: 'horizontal'
